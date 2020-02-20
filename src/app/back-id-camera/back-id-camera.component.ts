@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   templateUrl: './back-id-camera.component.html',
@@ -8,19 +8,22 @@ export class BackIdCameraComponent implements OnChanges {
   @Input() sdk: any;
   @Input() handleSuccess;
   @Input() handleError;
+  @Input() numberOfTries;
+
+  @Output() logger = new EventEmitter<any>();
 
   container;
+
+  handleLog(logObject) {
+    this.logger.emit(logObject)
+  }
 
   ngOnChanges() {
     this.container = document.getElementById('camera-container');
 
-    try {
-      this.sdk.renderCamera('back', this.container, {
-        onSuccess: this.handleSuccess,
-        onError: this.handleError
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    this.sdk.renderCamera('back', this.container, {
+      onLog: this.handleLog.bind(this),
+      numberOfTries: this.numberOfTries
+    });
   }
 }

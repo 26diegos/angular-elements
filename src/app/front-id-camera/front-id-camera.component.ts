@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   templateUrl: './front-id-camera.component.html',
@@ -7,23 +7,23 @@ import { Component, OnChanges, Input } from '@angular/core';
 export class FrontIdCameraComponent implements OnChanges {
   @Input() sdk: any;
   @Input() handleSuccess;
+  @Input() handleError;
+  @Input() numberOfTries;
+
+  @Output() logger = new EventEmitter<any>();
 
   container;
 
-  showError() {
-    alert('Some error');
+  handleLog(logObject) {
+    this.logger.emit(logObject)
   }
 
   ngOnChanges() {
     this.container = document.getElementById('camera-container');
 
-    try {
-      this.sdk.renderCamera('front', this.container, {
-        onSuccess: this.handleSuccess,
-        onError: this.showError
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    this.sdk.renderCamera('front', this.container, {
+      onLog: this.handleLog.bind(this),
+      numberOfTries: this.numberOfTries
+    });
   }
 }

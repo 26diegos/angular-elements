@@ -1,2 +1,2 @@
 #!/bin/sh
-ng build angular-app --prod --output-hashing=none && cat dist/angular-app/runtime-es2015.js dist/angular-app/polyfills-es2015.js dist/angular-app/scripts.js dist/angular-app/main-es2015.js > preview/angularapp.js
+ng build angular-app --prod --output-hashing=none && cat dist/angular-app/runtime-es2015.js dist/angular-app/polyfills-es2015.js dist/angular-app/scripts.js dist/angular-app/main-es2015.js > preview/angular-elements.js
