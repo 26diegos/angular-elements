@@ -9,6 +9,8 @@ export class FrontIdCameraComponent implements OnChanges {
   @Input() handleSuccess;
   @Input() handleError;
   @Input() numberOfTries;
+  @Input() permissionMessage;
+  @Input() permissionBackgroundColor;
 
   @Output() logger = new EventEmitter<any>();
 
@@ -20,10 +22,12 @@ export class FrontIdCameraComponent implements OnChanges {
 
   ngOnChanges() {
     this.container = document.getElementById('camera-container');
-
+    console.log(this)
     this.sdk.renderCamera('front', this.container, {
       onLog: this.handleLog.bind(this),
-      numberOfTries: this.numberOfTries
+      numberOfTries: this.numberOfTries,
+      permissionMessage: this.permissionMessage,
+      permissionBackgroundColor: this.permissionBackgroundColor
     });
   }
 }

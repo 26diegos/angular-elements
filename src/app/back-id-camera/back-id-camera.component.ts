@@ -9,6 +9,8 @@ export class BackIdCameraComponent implements OnChanges {
   @Input() handleSuccess;
   @Input() handleError;
   @Input() numberOfTries;
+  @Input() permissionMessage;
+  @Input() permissionBackgroundColor;
 
   @Output() logger = new EventEmitter<any>();
 
@@ -23,7 +25,9 @@ export class BackIdCameraComponent implements OnChanges {
 
     this.sdk.renderCamera('back', this.container, {
       onLog: this.handleLog.bind(this),
-      numberOfTries: this.numberOfTries
+      numberOfTries: this.numberOfTries,
+      permissionMessage: this.permissionMessage,
+      permissionBackgroundColor: this.permissionBackgroundColor
     });
   }
 }
