@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-selfie-camera',
@@ -7,23 +7,26 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 export class SelfieCameraComponent implements OnChanges {
   @Input() sdk: any;
-  @Input() handleSuccess;
-  @Input() handleError;
   @Input() numberOfTries;
+  @Input() permissionMessage;
+  @Input() permissionBackgroundColor;
+
+  @Output() logger = new EventEmitter<any>();
 
   container;
+
+  handleLog(logObject) {
+    this.logger.emit(logObject)
+  }
 
   ngOnChanges() {
     this.container = document.getElementById('camera-container');
 
-    try {
-      this.sdk.renderCamera('selfie', this.container, {
-        onSuccess: this.handleSuccess,
-        onError: this.handleError,
-        numberOfTries: this.numberOfTries
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    this.sdk.renderCamera('selfie', this.container, {
+      onLog: this.handleLog.bind(this),
+      numberOfTries: this.numberOfTries,
+      permissionMessage: this.permissionMessage,
+      permissionBackgroundColor: this.permissionBackgroundColor
+    });
   }
 }

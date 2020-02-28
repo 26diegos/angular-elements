@@ -6,8 +6,6 @@ import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core
 })
 export class BackIdCameraComponent implements OnChanges {
   @Input() sdk: any;
-  @Input() handleSuccess;
-  @Input() handleError;
   @Input() numberOfTries;
   @Input() permissionMessage;
   @Input() permissionBackgroundColor;
