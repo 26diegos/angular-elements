@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-selfie-camera',
   templateUrl: './selfie-camera.component.html',
   styleUrls: ['./selfie-camera.component.css']
 })
